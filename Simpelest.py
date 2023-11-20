@@ -29,7 +29,7 @@ def calculate_edit_distance(codeword1, codeword2):
 def is_code_valid(codewords, d):
     for i in range(len(codewords)):
         for j in range(i + 1, len(codewords)):
-            if edit_distance(codewords[i], codewords[j]) < d:
+            if calculate_edit_distance(codewords[i], codewords[j]) < d:
                 return False
     return True
 
