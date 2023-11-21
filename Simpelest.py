@@ -1,4 +1,5 @@
 import itertools
+import time
 
 # This function generates all possible q-ary codewords of length n
 def generate_codewords(n, q):
@@ -41,6 +42,7 @@ def is_code_valid(codewords, d):
 # Each comparison takes O(n*m) time, so the total time complexity is O(2^(q^n) * choose(2, M) * n*m).
 # Therefore, the time complexity of this algorithm is O(2^(q^n) * choose(2, M) * n*m).
 def find_optimal_code(n, q, d):
+    start_time = time.time()
     all_codewords = generate_codewords(n, q)
     # initialize the optimal code to be the empty set
     optimal_code = set()
@@ -49,10 +51,18 @@ def find_optimal_code(n, q, d):
         for codeword_set in itertools.combinations(all_codewords, r):
             if is_code_valid(codeword_set, d) and len(codeword_set) > len(optimal_code):
                 optimal_code = codeword_set
-    return optimal_code
+    end_time = time.time()
+    # return the optimal code and the time taken to find it
+    return optimal_code, end_time - start_time
 
 
-print(generate_codewords(3, 3))
-print(calculate_edit_distance("200", "1001"))
-print(is_code_valid(["000", "111", "222"], 3))
-print(find_optimal_code(4, 2, 2))
+# print(generate_codewords(3, 3))
+# print(calculate_edit_distance("200", "1001"))
+# print(is_code_valid(["000", "111", "222"], 3))
+
+# print("optimal code with n = 1, q = 2, d = 1 is", find_optimal_code(1, 2, 1))
+# print("optimal code with n = 2, q = 2, d = 1 is", find_optimal_code(2, 2, 1))
+# print("optimal code with n = 3, q = 2, d = 1 is", find_optimal_code(3, 2, 1))
+# print("optimal code with n = 4, q = 2, d = 1 is", find_optimal_code(4, 2, 1))
+# print("optimal code with n = 5, q = 2, d = 1 is", find_optimal_code(5, 2, 1))
+# print("optimal code with n = 2, q = 4, d = 2 is", find_optimal_code(2, 4, 4))
