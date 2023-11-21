@@ -33,6 +33,26 @@ def is_code_valid(codewords, d):
                 return False
     return True
 
+# This function finds the optimal code of length n and size q with minimum edit distance d between any two codewords
+# by exhaustively checking all possible sets of codewords
+# we have to check the space of 2^(q^n) sets of codewords and for each set,
+# we need to check the edit distance between every pair of codewords.
+# In the worst case, this is choose(2, M) comparisons per set, where M is the maximum number of codewords in a set.
+# Each comparison takes O(n*m) time, so the total time complexity is O(2^(q^n) * choose(2, M) * n*m).
+# Therefore, the time complexity of this algorithm is O(2^(q^n) * choose(2, M) * n*m).
+def find_optimal_code(n, q, d):
+    all_codewords = generate_codewords(n, q)
+    # initialize the optimal code to be the empty set
+    optimal_code = set()
+    for r in range(1, len(all_codewords) + 1):
+        # "itertools.combinations" returns all possible combinations of the given iterable (in this case, the codewords)
+        for codeword_set in itertools.combinations(all_codewords, r):
+            if is_code_valid(codeword_set, d) and len(codeword_set) > len(optimal_code):
+                optimal_code = codeword_set
+    return optimal_code
+
+
 print(generate_codewords(3, 3))
 print(calculate_edit_distance("200", "1001"))
 print(is_code_valid(["000", "111", "222"], 3))
+print(find_optimal_code(4, 2, 2))
