@@ -30,27 +30,20 @@ def calculate_edit_distance(codeword1, codeword2):
                                    dp[i - 1][j - 1])  # Substitution
     return dp[m][n]
 
-
-# This function checks if the given set of codewords is a valid code with minimum edit distance d between any two codewords
-def is_code_valid(codewords, d):
-    for i in range(len(codewords)):
-        for j in range(i + 1, len(codewords)):
-            if calculate_edit_distance(codewords[i], codewords[j]) < d:
-                return False
-    return True
-
-
 # This function checks if the new codeword can be added to the current set of codewords while maintaining the minimum edit distance d
 def is_code_valid_after_addition_of_new_codeword(current_set, new_codeword, d):
     return all(calculate_edit_distance(new_codeword, cw) >= d for cw in current_set)
 
-
+# This is the basic backtracking algorithm that we discussed in class
 def backtrack(codewords, n, q, d, current_set, optimal_set):
+    # If the current set is a valid code with a larger size than the optimal code, we update the optimal code
     if len(current_set) > len(optimal_set[0]):
         optimal_set[0] = current_set.copy()
 
     for codeword in codewords:
+
         if is_code_valid_after_addition_of_new_codeword(current_set, codeword, d):
+            # We add the codeword to the current set if it still satisfies the minimum edit distance d
             current_set.append(codeword)
             # We only need to consider codewords that come after the current codeword in the list
             codewords_for_next_level = codewords[codewords.index(codeword) + 1:]
@@ -66,6 +59,7 @@ def find_optimal_code_with_backtracking(n, q, d):
     end_time = time.time()
     return optimal_set[0], end_time - start_time
 
-
-print(len(find_optimal_code_with_backtracking(6, 2, 3)[0]))
-print(find_optimal_code_with_backtracking(6, 2, 3))
+result = find_optimal_code_with_backtracking(12, 4, 9)
+print(len(result[0]))
+print(result[0])
+print(result[1])
