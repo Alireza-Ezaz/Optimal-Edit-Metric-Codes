@@ -65,4 +65,4 @@ def find_optimal_code(n, q, d):
 # print("optimal code with n = 3, q = 2, d = 1 is", find_optimal_code(3, 2, 1))
 # print("optimal code with n = 4, q = 2, d = 1 is", find_optimal_code(4, 2, 1))
 # print("optimal code with n = 5, q = 2, d = 1 is", find_optimal_code(5, 2, 1))
-# print("optimal code with n = 2, q = 4, d = 2 is", find_optimal_code(2, 4, 4))
+print("optimal code with n = 3, q = 3, d = 1 is", find_optimal_code(3, 3, 1))
