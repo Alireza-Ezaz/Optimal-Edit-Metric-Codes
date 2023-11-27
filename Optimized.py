@@ -12,6 +12,7 @@ def generate_codewords(n, q):
     # and since the alphabet is a range from 0 to q−1, it generates the codewords in lexicographical order.
     return [''.join(comb) for comb in itertools.product(alphabet, repeat=n)]
 
+
 # This function calculates the Hamming distance between two given codewords
 def calculate_hamming_distance(codeword1, codeword2):
     # We first check if codewords are binary
@@ -113,7 +114,7 @@ def find_optimal_code_with_backtracking(n, q, d, M):
     return optimal_set[0], end_time - start_time
 
 
-result = find_optimal_code_with_backtracking(6, 2, 3, 7)
+result = find_optimal_code_with_backtracking(7, 2, 4, 5)
 print(len(result[0]))
 print(result[0])
 print(result[1])
