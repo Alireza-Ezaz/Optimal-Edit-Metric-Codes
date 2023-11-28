@@ -71,9 +71,9 @@ def is_starting_symbol_allowed_in_the_level(codeword, level, q):
     first_symbol = int(codeword[0])
     # We define thresholds for each symbol
     # result = math.ceil(M / q) + 1 as slides approach
-    threshold_for_1 = 2  # symbol '1' is allowed from level 3 onwards
-    threshold_for_2 = 4  # symbol '2' is allowed from level 5 onwards
-    threshold_for_3 = 6  # symbol '3' is allowed from level 7 onwards
+    threshold_for_1 = 2  # symbol '1' is allowed from level 2 onwards
+    threshold_for_2 = 4  # symbol '2' is allowed from level 4 onwards
+    threshold_for_3 = 6  # symbol '3' is allowed from level 6 onwards
 
     if first_symbol == 1 and level < threshold_for_1:
         return False
@@ -94,9 +94,7 @@ def backtrack(codewords, n, q, d, M, current_set, optimal_set, level=0):
         return  # Stop further backtracking as we've reached the desired size
 
     for codeword in codewords:
-        if (is_code_valid_after_addition_of_new_codeword(current_set, codeword,
-                                                         d) and is_starting_symbol_allowed_in_the_level(codeword, level,
-                                                                                                        q)):
+        if is_starting_symbol_allowed_in_the_level(codeword, level, q) and (is_code_valid_after_addition_of_new_codeword(current_set, codeword,d)):
             # We add the codeword to the current set if it still satisfies the minimum edit distance d
             current_set.append(codeword)
             # We only need to consider codewords that come after the current codeword in the list
@@ -107,14 +105,14 @@ def backtrack(codewords, n, q, d, M, current_set, optimal_set, level=0):
 
 def find_optimal_code_with_backtracking(n, q, d, M):
     start_time = time.time()
-    codewords = generate_codewords(n, q)  # Could be optimized for on-the-fly generation
+    codewords = generate_codewords(n, q)
     optimal_set = [[]]
     backtrack(codewords, n, q, d, M, [], optimal_set)
     end_time = time.time()
     return optimal_set[0], end_time - start_time
 
 
-result = find_optimal_code_with_backtracking(7, 2, 4, 5)
+result = find_optimal_code_with_backtracking(4, 3, 3, 7)
 print(len(result[0]))
 print(result[0])
 print(result[1])

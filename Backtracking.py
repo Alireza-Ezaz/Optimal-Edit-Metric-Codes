@@ -53,13 +53,13 @@ def backtrack(codewords, n, q, d, current_set, optimal_set):
 
 def find_optimal_code_with_backtracking(n, q, d):
     start_time = time.time()
-    codewords = generate_codewords(n, q)  # Could be optimized for on-the-fly generation
+    codewords = generate_codewords(n, q)
     optimal_set = [[]]
     backtrack(codewords, n, q, d, [], optimal_set)
     end_time = time.time()
     return optimal_set[0], end_time - start_time
 
-result = find_optimal_code_with_backtracking(12, 4, 9)
+result = find_optimal_code_with_backtracking(4, 3, 3)
 print(len(result[0]))
 print(result[0])
 print(result[1])
